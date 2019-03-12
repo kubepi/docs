@@ -17,7 +17,9 @@ Several distributions were trialled for use in this project. They include:
 - Ubuntu-Mate - Worked fine, but difficulties in updating distribution from 16.04 to 18.04
 - Unbuntu Server (ARM64 version)
 
-Ubuntu Server was the version used in the final implementation. You can download it [here](https://wiki.ubuntu.com/ARM/RaspberryPi#arm64): Raspberry Pi 3B/3B+: ubuntu-18.04.2-preinstalled-server-arm64+raspi3.img.xz
+Ubuntu Server was the version used in the final implementation. You can download it [here](https://wiki.ubuntu.com/ARM/RaspberryPi#arm64): 
+
+**Raspberry Pi 3B/3B+: ubuntu-18.04.2-preinstalled-server-arm64+raspi3.img.xz**
 
 ## Ubuntu Configurations
 
@@ -41,10 +43,10 @@ There are 2 approaches that can be taken to set a static IP. For this project, s
 
 ### Run a start up script
 
-
+```
 # Temporary Activation of IP forwarding
 sysctl -w net.ipv4.ip_forward=1
-'''
+```
 
 
 ## k3s (Lightweight Kubernetes)
