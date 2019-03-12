@@ -15,9 +15,9 @@ Several distributions were trialled for use in this project. They include:
 - Hypriot - Found it didn't work and is not maintained.
 - Unbuntu Core - Minimal distro. Required to install a classic mode to access common features. Ran into multiple issues as a result of this that weren't worth the pain for what I wanted to do.
 - Ubuntu-Mate - Worked fine, but difficulties in updating distribution from 16.04 to 18.04
-- Unbuntu (arm version)
+- Unbuntu Server (ARM64 version)
 
-Ubuntu was the version used in the final implementation. You can download it here.
+Ubuntu Server was the version used in the final implementation. You can download it [here](https://wiki.ubuntu.com/ARM/RaspberryPi#arm64): Raspberry Pi 3B/3B+: ubuntu-18.04.2-preinstalled-server-arm64+raspi3.img.xz
 
 ## Ubuntu Configurations
 
