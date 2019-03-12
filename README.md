@@ -22,6 +22,8 @@ There are 2 approaches that can be taken to set a static IP. For this project, s
 
 2) Static IP through router
 
+### Port Forwarding
+
 
 ### Configure a hostname for each device in the cluster
 
@@ -31,8 +33,36 @@ There are 2 approaches that can be taken to set a static IP. For this project, s
 
 ### Run a start up script
 
-'''
+
 # Temporary Activation of IP forwarding
 sysctl -w net.ipv4.ip_forward=1
 '''
+
+
+## k3s (Lightweight Kubernetes)
+
+### What is it?
+
+### Installation on the master node
+
+### Installation on the worker nodes
+
+
+## Kubernetes Dashboard
+
+### Installation
+
+### Accessing though the proxy
+
+### Displaying the Dashboard from a Windows Machine on the Network
+
+
+## Installing a basic Java application
+
+### Accessing the application
+
+
+
+## Pimorami LEDs
+
 
