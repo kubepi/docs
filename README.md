@@ -1,5 +1,13 @@
 # Installation and setup instructions for a Kubernetes cluster on Raspberry Pi
 
+## Fundamentals
+
+### Networking
+
+- Understanding NAT
+
+Linux in Action covers this well
+
 ## Distributions
 
 Several distributions were trialled for use in this project. They include:
