@@ -13,8 +13,8 @@ Linux in Action covers this well
 Several distributions were trialled for use in this project. They include:
 
 - Hypriot - Found it didn't work and is not maintained.
-- Ubuntu-Mate
-- Unbuntu Core - Minimal distro. Required to install a classic mode to access common features. Ran into multiple issues as a result of this, so moved on.
+- Unbuntu Core - Minimal distro. Required to install a classic mode to access common features. Ran into multiple issues as a result of this that weren't worth the pain for what I wanted to do.
+- Ubuntu-Mate - Worked fine, but difficulties in updating distribution from 16.04 to 18.04
 - Unbuntu (arm version)
 
 Ubuntu was the version used in the final implementation. You can download it here.
