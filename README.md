@@ -1,4 +1,4 @@
-# Installation and setup instructions for a Kubernetes installation on Raspberry Pi
+# Installation and setup instructions for a Kubernetes cluster on Raspberry Pi
 
 ## Distributions
 
