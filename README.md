@@ -130,9 +130,46 @@ network:
 
 ### Run a start up script
 
+There are various ways to execute a script on startup, covered well [here](https://github.com/OpenLabTools/OpenLabTools/wiki/Launching-bash-scripts-at-startup) - some examples include:
+
+- update-rc.d
+- ~/.profile
+- ~/.bash_profile
+- ~/.bashrc
+
+For this project we will use update-rc.d. To do this we first create a script in each node in the home directory. Execute the following commands:
+
 ```
+cd ~
+sudo nano startup-tasks.sh
+# Add the tasks to the file and save
+
+# Make it executable
+sudo chmod a+x startup-tasks.sh
+# Give it root rights (saves you to write sudo every time)
+sudo chmod 777 startup-tasks.sh
+
+# Copy your script to the /etc/init.d/ folder with
+sudo cp ~/startup-tasks.sh /etc/init.d/
+
+# The following will add your script as the last thing to be run before login
+sudo update-rc.d startup-tasks.sh defaults
+
+#Should you want to remove the link to your shell script from the startup list, you will have to remove the shell script from the init.d folder FIRST
+sudo rm /etc/init.d/startup-tasks.sh
+# and invoke
+sudo update-rc.d startup-tasks.sh remove
+```
+
+Add the following to the shell:
+
+```
+#! /bin/bash
+
 # Temporary Activation of IP forwarding
 sysctl -w net.ipv4.ip_forward=1
+# Switch off firewall and check status
+sudo ufw disable
 ```
 
 ## k3s (Lightweight Kubernetes)
