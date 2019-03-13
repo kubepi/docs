@@ -72,7 +72,7 @@ Configure the master node with the following, assigning an IP of 192.168.1.150 (
     link/ether b8:27:eb:44:43:b2 brd ff:ff:ff:ff:ff:ff
 ```
 
-Netplan configurations:
+Configure the master node as follows:
 
 ```
 network:
