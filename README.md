@@ -130,14 +130,7 @@ network:
 
 ### Run a start up script
 
-There are various ways to execute a script on startup, covered well [here](https://github.com/OpenLabTools/OpenLabTools/wiki/Launching-bash-scripts-at-startup) - some examples include:
-
-- update-rc.d
-- ~/.profile
-- ~/.bash_profile
-- ~/.bashrc
-
-For this project we will use update-rc.d. To do this we first create a script in each node in the home directory. Execute the following commands:
+Create a script in each node in the home directory. Execute the following commands to add a reboot entry to crontab:
 
 ```
 cd ~
