@@ -149,16 +149,36 @@ sudo chmod a+x startup-tasks.sh
 # Give it root rights (saves you to write sudo every time)
 sudo chmod 777 startup-tasks.sh
 
-# Copy your script to the /etc/init.d/ folder with
-sudo cp ~/startup-tasks.sh /etc/init.d/
+# Add a @reboot entry to crontab
+crontab -e
+```
 
-# The following will add your script as the last thing to be run before login
-sudo update-rc.d startup-tasks.sh defaults
+crontab file should look like:
 
-#Should you want to remove the link to your shell script from the startup list, you will have to remove the shell script from the init.d folder FIRST
-sudo rm /etc/init.d/startup-tasks.sh
-# and invoke
-sudo update-rc.d startup-tasks.sh remove
+```
+# Edit this file to introduce tasks to be run by cron.
+# 
+# Each task to run has to be defined through a single line
+# indicating with different fields when the task will be run
+# and what command to run for the task
+# 
+# To define the time you can provide concrete values for
+# minute (m), hour (h), day of month (dom), month (mon),
+# and day of week (dow) or use '*' in these fields (for 'any').# 
+# Notice that tasks will be started based on the cron's system
+# daemon's notion of time and timezones.
+# 
+# Output of the crontab jobs (including errors) is sent through
+# email to the user the crontab file belongs to (unless redirected).
+# 
+# For example, you can run a backup of all your user accounts
+# at 5 a.m every week with:
+# 0 5 * * 1 tar -zcf /var/backups/home.tgz /home/
+# 
+# For more information see the manual pages of crontab(5) and cron(8)
+# 
+# m h  dom mon dow   command
+@reboot sudo ~/startup-tasks.sh
 ```
 
 Add the following to startup-tasks.sh:
