@@ -161,15 +161,24 @@ sudo rm /etc/init.d/startup-tasks.sh
 sudo update-rc.d startup-tasks.sh remove
 ```
 
-Add the following to the shell:
+Add the following to startup-tasks.sh:
 
 ```
 #! /bin/bash
 
 # Temporary Activation of IP forwarding
-sysctl -w net.ipv4.ip_forward=1
+sudo sysctl -w net.ipv4.ip_forward=1
 # Switch off firewall and check status
 sudo ufw disable
+```
+
+Reboot the PI and confirm that the script ran on startup:
+
+```
+# Should have a value of 1
+sysctl net.ipv4.ip_forward
+# Will show the status of the firewall, should be disabled
+sudo ufw status
 ```
 
 ## k3s (Lightweight Kubernetes)
