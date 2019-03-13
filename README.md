@@ -53,14 +53,33 @@ sudo netplan apply
 sudo netplan --debug apply
 ```
 
-Configure the master node with the following, assigning an IP of 192.168.1.150 (note that ens5 below should be replaced with the network interface identified when you ran **ip a**):
+Configure the master node with the following, assigning an IP of 192.168.1.150 (note that eth0 below should be replaced with the network interface identified when you ran **ip a** - in the output below, you can see that the interface is called eth0):
+
+```
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether b8:27:eb:11:16:e7 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.1.151/24 brd 192.168.1.255 scope global dynamic eth0
+       valid_lft 84632sec preferred_lft 84632sec
+    inet6 fe80::ba27:ebff:fe11:16e7/64 scope link 
+       valid_lft forever preferred_lft forever
+3: wlan0: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN group default qlen 1000
+    link/ether b8:27:eb:44:43:b2 brd ff:ff:ff:ff:ff:ff
+```
+
+Netplan configurations:
 
 ```
 network:
     version: 2
     renderer: networkd
     ethernets:
-        ens5:
+        eth0:
             dhcp4: no
             addresses: [192.168.1.150/24]
             gateway4: 192.168.1.1
@@ -75,7 +94,7 @@ network:
     version: 2
     renderer: networkd
     ethernets:
-        ens5:
+        eth0:
             dhcp4: no
             addresses: [192.168.1.151/24]
             gateway4: 192.168.1.1
@@ -90,7 +109,7 @@ network:
     version: 2
     renderer: networkd
     ethernets:
-        ens5:
+        eth0:
             dhcp4: no
             addresses: [192.168.1.152/24]
             gateway4: 192.168.1.1
