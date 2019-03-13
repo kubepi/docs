@@ -92,7 +92,7 @@ network:
     ethernets:
         ens5:
             dhcp4: no
-            addresses: [192.168.1.150/24]
+            addresses: [192.168.1.152/24]
             gateway4: 192.168.1.1
             nameservers:
                 addresses: [8.8.4.4,8.8.8.8]
