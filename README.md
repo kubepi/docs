@@ -31,31 +31,41 @@ There are 2 approaches that can be taken to set a static IP. For this project, s
 
 Ubuntu Server 18.04 requires editing a .yaml file over the traditional updates into /etc/network/interfaces since it now uses Netplan.
 
-*Netplan is a command line utility for the configuration of networking on certain Linux distributions. Netplan uses YAML description files to configure network interfaces and, from those descriptions, will generate the necessary configuration options for any given renderer tool.
+*Netplan is a command line utility for the configuration of networking on certain Linux distributions. Netplan uses YAML description files to configure network interfaces and, from those descriptions, will generate the necessary configuration options for any given renderer tool.*
 
 ```
 cd /etc/netplan
 ls -l
 # You should see a file named 50-cloud-init.yaml
 # If you don't also see a file named 01-netcfg.yaml, create it with the command sudo touch 01-netcfg.yaml
-ip a
-sudo nano 01-netcfg.yaml
 
+# Now identify the network interface you want the changes applied to, i.e your ethernet port
+ip a
+
+# Apply the configurations
+sudo nano 01-netcfg.yaml 
+# Add in the yaml below for each node ...
+
+# Restart netplan
+sudo netplan apply
+
+# If it fails run
+sudo netplan --debug apply
 ```
 
-Configure the master node with the following, assigning an IP of 192.168.1.150:
+Configure the master node with the following, assigning an IP of 192.168.1.150 (note that ens5 below should be replaced with the network interface identified when you ran **ip a**):
 
 ```
 network:
     version: 2
     renderer: networkd
     ethernets:
-       ens5:
-       dhcp4: no
-       addresses: [192.168.1.150/24]
-       gateway4: 192.168.1.1
-       nameservers:
-          addresses: [8.8.4.4,8.8.8.8]
+        ens5:
+            dhcp4: no
+            addresses: [192.168.1.150/24]
+            gateway4: 192.168.1.1
+            nameservers:
+                addresses: [8.8.4.4,8.8.8.8]
 ```
 
 Configure the worker nodes as follows:
@@ -65,12 +75,12 @@ network:
     version: 2
     renderer: networkd
     ethernets:
-       ens5:
-       dhcp4: no
-       addresses: [192.168.1.151/24]
-       gateway4: 192.168.1.1
-       nameservers:
-          addresses: [8.8.4.4,8.8.8.8]
+        ens5:
+            dhcp4: no
+            addresses: [192.168.1.151/24]
+            gateway4: 192.168.1.1
+            nameservers:
+                addresses: [8.8.4.4,8.8.8.8]
 ```
 
 And the final worker node:
@@ -80,15 +90,13 @@ network:
     version: 2
     renderer: networkd
     ethernets:
-       ens5:
-       dhcp4: no
-       addresses: [192.168.1.152/24]
-       gateway4: 192.168.1.1
-       nameservers:
-          addresses: [8.8.4.4,8.8.8.8]
+        ens5:
+            dhcp4: no
+            addresses: [192.168.1.150/24]
+            gateway4: 192.168.1.1
+            nameservers:
+                addresses: [8.8.4.4,8.8.8.8]
 ```
-
-
 
 2) Static IP through router
 
