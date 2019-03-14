@@ -150,6 +150,19 @@ hostnamectl
 
 ### Set an alias
 
+Note: Only complete this step after k3s has been installed
+
+Since we are using k3s to run the kubernetes cluster (see later instructions), we can create aliases to save on typing in the k3s command each time.
+
+```
+# Open .bashrc for editing (options – B backups up the file, u is undo)
+sudo nano -Bu ~/.bashrc
+
+# Scroll down to the bottom of the file and add the desired aliases
+
+# Custom Aliases
+alias kubectl='k3s kubectl'
+```
 
 ### Run a start up script
 
