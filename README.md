@@ -124,6 +124,29 @@ network:
 
 ### Configure a hostname for each device in the cluster
 
+To help identify which node you are working on from the terminal, assign each node a unique hostname.
+
+```
+# Display the current hostname
+hostnamectl
+
+# Set the hostname for kuber-master
+sudo hostnamectl set-hostname kuber-master
+
+# Edit /etc/hosts and update the hostname
+sudo nano /etc/hosts
+
+# Edit cloud.cfg - first check if it exists
+ls -l /etc/cloud/cloud.cfg
+# If it doesn't, then you are done, otherwise complete the next steps
+sudo nano /etc/cloud/cloud.cfg
+# Search for preserve_hostname and set it to true, preventing the set+update hostname module from resetting it
+
+# Reboot
+sudo reboot
+# Verify
+hostnamectl
+```
 
 ### Set an alias
 
