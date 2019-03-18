@@ -230,20 +230,80 @@ sysctl net.ipv4.ip_forward
 sudo ufw status
 ```
 
+## Install necessary packages
+
+Some of these may already be installed. Install on each node:
+
+```
+sudo apt-get install git
+sudo apt-get install docker
+```
+
 ## k3s (Lightweight Kubernetes)
 
 ### What is it?
 
 ### Installation on the master node
 
+```
+# Download the latest k3s distribution
+curl -sfL https://get.k3s.io | sh -
+
+# Check for Ready node, takes maybe 30 seconds
+k3s kubectl get node
+
+# Find the token for the slave nodes to join
+sudo cat /var/lib/rancher/k3s/server/node-token
+
+# You can join using the following command
+k3s agent --server https://myserver:6443 --token ${NODE_TOKEN}
+```
+
 ### Installation on the worker nodes
 
+```
+# Download the latest k3s distribution
+curl -sfL https://get.k3s.io | sh -
+
+# This will also start the service on the nodes, so stop it before joining the nodes
+systemctl stop k3s.service
+
+# Join the node to the master
+sudo k3s agent --server https://192.168.1.150:6443 --token K10d7793c536fca4b6a5a2915a6fba795162509d2c5723caf48a2b69c55978465fc::node:665122982b03ea4c7d7677272df44733
+
+# Check that the node has successfully joined
+k3s kubectl get node
+```
 
 ## Kubernetes Dashboard
 
 ### Installation
 
+```
+# Run the following on the master node
+k3s kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended/kubernetes-dashboard.yaml
+k3s kubectl get pods --all-namespaces
+kubectl cluster-info
+```
+
 ### Accessing though the proxy
+
+```
+# Start the proxy to access the dashboard
+k3s kubectl proxy
+k3s kubectl proxy -p 8888
+
+# From master node
+curl localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
+
+# Useful commands
+k3s kubectl get po -n kube-system
+k3s kubectl describe po -n kube-system <kubernetes-dashboard-pod-name>
+k3s kubectl logs -n kube-system <kubernetes-dashboard-pod-name>
+k3s kubectl logs -n kube-system kubernetes-dashboard-57df4db6b-scvt2
+k3s kubectl delete pod <podname>
+k3s kubectl delete pod kubernetes-dashboard-57df4db6b-scvt2
+```
 
 ### Displaying the Dashboard from a Windows Machine on the Network
 
