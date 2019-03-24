@@ -17,20 +17,55 @@ Several distributions were trialled for use in this project. They include:
 - Ubuntu-Mate - Worked fine, but difficulties in updating distribution from 16.04 to 18.04
 - Unbuntu Server (ARM64 version)
 
-## Ubuntu Configurations
+## Raspian Configurations
+
+### Enable SSH
+
+```
+Enter sudo raspi-config in a terminal window.
+Select Interfacing Options.
+Navigate to and select SSH.
+Choose Yes.
+Select Ok.
+Choose Finish.
+```
 
 ### Static IP
 
-There are 2 approaches that can be taken to set a static IP. For this project, since the intention is to allow it to work on multiple networks (home network along with a travel network i.e. different routers), the preference is to configure a static IP through Ubuntu itself. However, for future reference both methods will be documented.
+There are 2 approaches that can be taken to set a static IP. For this project, since the intention is to allow it to work on multiple networks (home network along with a travel network i.e. different routers), the preference is to configure a static IP through Raspian itself. However, for future reference both methods will be documented.
 
 1) Static IP through Raspbian
 
-
-
+```
+sudo nano /etc/dhcpcd.conf
 ```
 
+**kuber-master**
+
+```
+interface eth0
+static ip_address=192.168.1.150/24
+static routers=192.168.1.1
+static domain_name_servers=8.8.8.8 8.8.4.4
 ```
 
+**kuber-worker-a**
+
+```
+interface eth0
+static ip_address=192.168.1.151/24
+static routers=192.168.1.1
+static domain_name_servers=8.8.8.8 8.8.4.4
+```
+
+**kuber-worker-b**
+
+```
+interface eth0
+static ip_address=192.168.1.152/24
+static routers=192.168.1.1
+static domain_name_servers=8.8.8.8 8.8.4.4
+```
 
 2) Static IP through router
 
