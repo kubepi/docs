@@ -22,12 +22,34 @@ Several distributions were trialled for use in this project. They include:
 ### Enable SSH
 
 ```
-Enter sudo raspi-config in a terminal window.
-Select Interfacing Options.
-Navigate to and select SSH.
-Choose Yes.
-Select Ok.
-Choose Finish.
+sudo raspi-config
+
+# Select Interfacing Options.
+# Navigate to and select SSH.
+# Choose Yes.
+# Select Ok.
+# Choose Finish.
+```
+
+### Configure a hostname for each device in the cluster
+
+To help identify which node you are working on from the terminal, assign each node a unique hostname.
+
+```
+sudo raspi-config
+
+# Select Network Options.
+# Select Hostname
+
+# Set as kuber-master, kuber-worker-a & kuber-worker-b
+```
+
+### Change default password
+
+```
+sudo raspi-config
+
+# Select Change User Password
 ```
 
 ### Static IP
@@ -72,29 +94,7 @@ static domain_name_servers=8.8.8.8 8.8.4.4
 ### Port Forwarding
 
 
-### Configure a hostname for each device in the cluster
 
-To help identify which node you are working on from the terminal, assign each node a unique hostname.
-
-```
-
-```
-
-### Set an alias
-
-Note: Only complete this step after k3s has been installed
-
-Since we are using k3s to run the kubernetes cluster (see later instructions), we can create aliases to save on typing in the k3s command each time.
-
-```
-# Open .bashrc for editing (options – B backups up the file, u is undo)
-sudo nano -Bu ~/.bashrc
-
-# Scroll down to the bottom of the file and add the desired aliases
-
-# Custom Aliases
-alias kubectl='k3s kubectl'
-```
 
 ### Run a start up script
 
