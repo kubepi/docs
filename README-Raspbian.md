@@ -94,8 +94,6 @@ static domain_name_servers=8.8.8.8 8.8.4.4
 ### Port Forwarding
 
 
-
-
 ### Run a start up script
 
 Create a script in each node in the home directory. Execute the following commands to add a reboot entry to crontab:
@@ -169,6 +167,20 @@ Some of these may already be installed. Install on each node:
 ```
 sudo apt-get install git
 sudo apt-get install docker
+```
+
+## Enable cgroups
+
+Necessary to avoid **CGROUPS_MEMORY: missing** error when running 'kubeadm init'
+
+```
+sudo nano /boot/cmdline.txt
+```
+
+Add in the entries cgroup_enable=cpuset cgroup_enable=memory which must appear before elevator=deadline, otherwise the changes won't take effect.
+
+```
+dwc_otg.lpm_enable=0 console=serial0,115200 console=tty1 root=PARTUUID=1f8d51b7-02 rootfstype=ext4 cgroup_enable=cpuset cgroup_enable=memory elevator=deadline fsck.repair=yes rootwait
 ```
 
 ## Kubernetes
