@@ -254,40 +254,9 @@ kubectl delete pod <podname>
 kubectl delete pod kubia-xghm5
 ```
 
-## Kubernetes Dashboard
+## Installing a basic HelloWorld Java application
 
-### Installation
-
-```
-# Run the following on the master node
-k3s kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended/kubernetes-dashboard.yaml
-k3s kubectl get pods --all-namespaces
-kubectl cluster-info
-```
-
-### Accessing though the proxy
-
-```
-# Start the proxy to access the dashboard
-k3s kubectl proxy
-k3s kubectl proxy -p 8888
-
-# From master node
-curl localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
-
-# Useful commands
-k3s kubectl get po -n kube-system
-k3s kubectl describe po -n kube-system <kubernetes-dashboard-pod-name>
-k3s kubectl logs -n kube-system <kubernetes-dashboard-pod-name>
-k3s kubectl logs -n kube-system kubernetes-dashboard-57df4db6b-scvt2
-k3s kubectl delete pod <podname>
-k3s kubectl delete pod kubernetes-dashboard-57df4db6b-scvt2
-```
-
-### Displaying the Dashboard from a Windows Machine on the Network
-
-
-## Installing a basic Java application
+### Balena base images
 
 ### Accessing the application
 
