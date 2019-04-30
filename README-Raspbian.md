@@ -254,7 +254,7 @@ kubectl delete pod kubia-xghm5
 
 ## Installing a basic HelloWorld Java/Spring application
 
-As a simple first example we will create a basic hello world application which will have the following requirements:
+As a simple first example (available [here](https://github.com/kubepi/java-spring-hello-world)) we will create a basic hello world application which will have the following requirements:
 
 1) A simple RESTful API build in Java and Spring comprising of a single GET service to return a string
 2) It should contain a docker image with a compatible base image
@@ -266,9 +266,85 @@ The base image that is used must be compatible with the underlying architecture 
 
 A [Balena](https://www.balena.io/docs/reference/base-images/base-images/) has been used for this example which supports Java 8 on a 32bit armhf architecture.
 
+### Installing the application
+
+To install the application we apply the deployment.yaml we build for this example.
+
+```
+kubectl apply -f https://raw.githubusercontent.com/kubepi/java-spring-hello-world/master/deployment.yaml
+
+# To delete the installation again, if you need to, run the following command
+kubectl delete -f https://raw.githubusercontent.com/kubepi/java-spring-hello-world/master/deployment.yaml
+
+# Verify the state of the installation using the following
+kubectl describe pod hello-world -n default
+
+# Note that initial install will take some time while the image is being pulled
+
+# If you are having issues with the installation, you can debug through docker using the following command, which will open an interactive shell container
+docker run -it bingbo/kubepi-helloworld:0.1.2 sh
+```
+
 ### Accessing the application
 
+There are several ways to access an application on the cluster, a good overview of which is available [here](https://gardener.cloud/050-tutorials/content/howto/service-access/). The primary methods used include:
 
+- ClusterIP
+- NodePort
+- LoadBalancer
+
+In the deployment.yaml used in this example, we have defined external access using NodePort.
+
+A service of type NodePort is a ClusterIP service with an additional capability: it is reachable at the IP address of the node as well as at the assigned cluster IP on the services network.
+
+Note that Kubernetes does not offer an implementation of network load-balancers (Services of type LoadBalancer) for bare metal clusters - typically this is achieved through a Load Balancer made available via a cloud provider.
+
+
+```
+kubectl get services
+
+# If you need to delete the service for any reason
+kubectl delete service hello-world-service
+
+# To access the cluster using NodePort, first find out the Node IP address
+kubectl describe node
+
+Addresses:
+  InternalIP:  192.168.1.152
+  Hostname:    kuber-worker-b
+
+# Then get the assigned port
+kubectl get services
+
+pi@kuber-master:~ $ kubectl get services
+NAME                  TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)        AGE
+hello-world-service   NodePort    10.99.9.14   <none>        80:31001/TCP   22h
+kubernetes            ClusterIP   10.96.0.1    <none>        443/TCP        22d
+
+kubectl exec -it hello-world-64484d76f9-fgqsp curl 192.168.1.152:31001
+OR simply ...
+curl 192.168.1.152:31001
+
+# Output
+Hello Kubernetes World!
+
+# Scaling the service
+kubectl get pods -o wide
+kubectl scale deployment hello-world --replicas=2 -n default
+
+# You should now see that the hello-world service is now available on both of our workers
+
+pi@kuber-master:~ $ kubectl get pods -o wide
+NAME                           READY     STATUS              RESTARTS   AGE       IP          NODE
+hello-world-64484d76f9-dlnxm   0/1       ContainerCreating   0          4s        <none>      kuber-worker-b
+hello-world-64484d76f9-fgqsp   1/1       Running             0          1d        10.44.0.3   kuber-worker-a
+
+# And eventually an IP will be assigned
+pi@kuber-master:~ $ kubectl get pods -o wide
+NAME                           READY     STATUS    RESTARTS   AGE       IP          NODE
+hello-world-64484d76f9-dlnxm   1/1       Running   0          1m        10.36.0.1   kuber-worker-b
+hello-world-64484d76f9-fgqsp   1/1       Running   0          1d        10.44.0.3   kuber-worker-a
+```
 
 ## Pimorami LEDs
 
