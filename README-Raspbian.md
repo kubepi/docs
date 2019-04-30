@@ -138,8 +138,6 @@ dwc_otg.lpm_enable=0 console=serial0,115200 console=tty1 root=PARTUUID=1f8d51b7-
 
 ## Kubernetes
 
-### What is it?
-
 ### Installation of Kubernetes on all nodes
 
 Using 1.9.6 for now as per the guide, other versions had issues on the Raspberry Pi.
@@ -254,9 +252,19 @@ kubectl delete pod <podname>
 kubectl delete pod kubia-xghm5
 ```
 
-## Installing a basic HelloWorld Java application
+## Installing a basic HelloWorld Java/Spring application
+
+As a simple first example we will create a basic hello world application which will have the following requirements:
+
+1) A simple RESTful API build in Java and Spring comprising of a single GET service to return a string
+2) It should contain a docker image with a compatible base image
+3) It should contain a kubernetes deployment descriptor to deploy the application onto Kubernetes
 
 ### Balena base images
+
+The base image that is used must be compatible with the underlying architecture that the cluster will reside on. In this case, although the Raspberry Pi 3 B+ is 64bit (arm64) compatible with an appropriate distro installation, this cluster will use Raspbian, which in it's current form supports 32bit armhf.
+
+A [Balena](https://www.balena.io/docs/reference/base-images/base-images/) has been used for this example which supports Java 8 on a 32bit armhf architecture.
 
 ### Accessing the application
 
