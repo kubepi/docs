@@ -348,3 +348,34 @@ hello-world-64484d76f9-fgqsp   1/1       Running   0          1d        10.44.0.
 
 ## Pimorami LEDs
 
+See [here](https://github.com/apprenda/blinkt-k8s-controller) for details for how to install.
+
+I also had to apply the following commands:
+
+```
+kubectl label node kuber-master deviceType=blinkt
+kubectl label node kuber-worker-a deviceType=blinkt
+kubectl label node kuber-worker-b deviceType=blinkt
+```
+
+## Load Balance test for NodeType
+
+```
+#!/bin/bash
+> load_balance_results
+> node_port_results
+for i in {1..200}; 
+do
+  curl $1 >> load_balance_results
+done
+grep -hr "Pod Name:" load_balance_results > node_port_results
+echo '******************************************************'
+sort node_port_results | uniq -c
+echo '******************************************************' 
+```
+
+Then run:
+
+```
+bash load_balance_test_node_port.sh 192.168.1.152:30123
+```
