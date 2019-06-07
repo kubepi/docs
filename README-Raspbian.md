@@ -2,12 +2,6 @@
 
 ## Fundamentals
 
-### Networking
-
-- Understanding NAT
-
-Linux in Action covers this well
-
 ## Distributions
 
 Several distributions were trialed for use in this project. They include:
@@ -16,6 +10,8 @@ Several distributions were trialed for use in this project. They include:
 - Unbuntu Core - Minimal distro. Required to install a classic mode to access common features. Ran into multiple issues as a result of this that weren't worth the pain for what I wanted to do.
 - Ubuntu-Mate - Worked fine, but difficulties in updating distribution from 16.04 to 18.04
 - Unbuntu Server (ARM64 version)
+
+Raspbian is the only distro that I managed to get working in the end.
 
 ## Raspian Configurations
 
